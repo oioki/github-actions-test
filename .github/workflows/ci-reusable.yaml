@@ -1,0 +1,40 @@
+name: CI for a python package
+on:
+  workflow_call:
+    inputs:
+      subdir:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      subdir:
+        required: true
+        type: string
+
+defaults:
+  run:
+    # the default default is:
+    #      bash --noprofile --norc -eo pipefail {0}
+    shell: bash --noprofile --norc -eo pipefail -ux {0}
+
+jobs:
+  lint:
+    defaults:
+      run:
+        working-directory: ${{ inputs.subdir }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout code
+      - uses: oioki-attacker/direnv-action@oioki/path-input
+        with:
+          path: ${{ inputs.subdir }}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - run: make env
+      - name: Run linter
+        run: |
+          pre-commit install --install-hooks
+          make lint

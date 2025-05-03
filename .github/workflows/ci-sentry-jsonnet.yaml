@@ -1,0 +1,17 @@
+name: CI for the sentry_jsonnet package
+on:
+  push:
+    branches:
+      - main
+      - release-sentry-jsonnet/**
+    paths:
+      - sentry_jsonnet/**
+  pull_request:
+    paths:
+      - sentry_jsonnet/**
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci-reusable.yaml
+    with:
+      subdir: sentry_jsonnet
