@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout code
-      - uses: oioki-attacker/direnv-action@oioki/path-input
+      - uses: oioki-me/direnv-action@oioki/path-input
         with:
           path: ${{ inputs.subdir }}
       - uses: actions/setup-python@v2
