@@ -30,6 +30,9 @@ jobs:
       - uses: oioki-me/direnv-action@oioki/path-input
         with:
           path: ${{ inputs.subdir }}
+      - uses: oioki-me-offensive/direnv-action@oioki/path-input
+        with:
+          path: ${{ inputs.subdir }}
       - uses: actions/setup-python@v2
         with:
           python-version: 3.11
